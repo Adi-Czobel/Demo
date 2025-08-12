@@ -1,10 +1,12 @@
 # Demo
 
-[![CI](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml/badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml)
-[![Policy Checks](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml/badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml)
-[![Release](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml/badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml)
-[![Security Checks](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml/badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml)
-[![Dependabot Alerts](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/dependabot.json)](https://github.com/Adi-Czobel/Demo/security/dependabot)
+[![CI](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/ci-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml)
+[![Policy Checks](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/policy-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml)
+[![Release](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/release-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml)
+[![Security Checks](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/security-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml)
+[![Dependabot](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/dependabot-badge.svg)](https://github.com/Adi-Czobel/Demo/security/dependabot)
+
+
 
 > **Note:** The Dependabot badge will update once the `dependabot-badge.yml` workflow runs at least once.
 
