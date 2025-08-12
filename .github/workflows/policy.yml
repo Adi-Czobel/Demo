@@ -11,7 +11,7 @@ jobs:
   dockerfile-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Check if Dockerfile exists
         id: dockerfile_exists
         run: |
@@ -28,7 +28,7 @@ jobs:
   terraform-validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Check if Terraform files exist
         id: terraform_exists
         run: |
@@ -52,7 +52,7 @@ jobs:
   checkov:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Check if scan files exist
         id: scan_files_exist
         run: |
