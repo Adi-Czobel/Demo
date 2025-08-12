@@ -1,0 +1,19 @@
+title = "Demo Repository Allowlist"
+
+[allowlist]
+description = "Ignore known demo placeholders and generated files for CI/CD demo repo"
+# Ignore specific demo files
+files = [
+  '''^kubernetes/.*$''',
+  '''^terraform/.*$''',
+  '''^Docker/.*$'''
+]
+# Ignore specific placeholder secrets or patterns
+regexes = [
+  '''Change\.me!''',
+  '''x-access-token:\$\{\{ secrets\.GITHUB_TOKEN \}\}'''
+]
+# Ignore the badges branch entirely (where dependabot.json is stored)
+paths = [
+  "badges"
+]
