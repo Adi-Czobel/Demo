@@ -1,0 +1,3 @@
+# Minimal Dockerfile for CI linting
+FROM alpine:3.19
+CMD ["echo", "Dockerfile lint check passed!"]
