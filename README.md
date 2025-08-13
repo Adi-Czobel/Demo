@@ -1,10 +1,12 @@
 # Demo
 
-[![CI](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/ci-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml)
-[![Policy Checks](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/policy-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml)
-[![Release](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/release-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml)
-[![Security Checks](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/security-badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml)
-[![Dependabot](https://raw.githubusercontent.com/Adi-Czobel/Demo/badges/dependabot-badge.svg)](https://github.com/Adi-Czobel/Demo/security/dependabot)
+[![CI](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml)
+[![Policy Checks](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml)
+[![Release](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml)
+[![Security Checks](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml)
+[![Dependabot Badge](https://github.com/Adi-Czobel/Demo/actions/workflows/dependabot-badge.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/dependabot-badge.yml)
+[![Update Badges](https://github.com/Adi-Czobel/Demo/actions/workflows/update-badges.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/update-badges.yml)
+
 
 
 
