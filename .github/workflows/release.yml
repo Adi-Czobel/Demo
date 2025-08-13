@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    tags: [ 'v*' ]          # e.g. v0.1.2
+    tags: [ 'v*' ]          # e.g. v0.1.3
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Ensure GHCR repo is ALL LOWERCASE
+      # Ensure GHCR repo is ALL LOWERCASE (required for cosign + GHCR)
       - name: Compute lowercase image repo
         run: echo "IMAGE_REPO=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
@@ -75,16 +75,47 @@ jobs:
         with:
           sarif_file: trivy-image.sarif
 
-      # Cosign (keyless) — now uses the LOWERCASE IMAGE_REPO everywhere
+      # --- Cosign best-practice: keep TUF, add cache + retries ---
+
+      - name: Cache Sigstore/TUF metadata
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.sigstore
+            ~/.cache/tuf
+          key: sigstore-tuf-${{ runner.os }}-v1
+
       - name: Install cosign
         uses: sigstore/cosign-installer@v3
 
-      - name: Cosign sign (keyless)
+      - name: Cosign sign (keyless) with retries
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: |
-          cosign sign ${{ env.IMAGE_REPO }}:${{ github.ref_name }} --yes
-          cosign sign ${{ env.IMAGE_REPO }}:latest --yes
+          set -euo pipefail
+
+          sign() {
+            ref="$1"
+            cosign sign "${ref}" --yes
+          }
+
+          retry_sign() {
+            ref="$1"
+            for i in 1 2 3; do
+              echo "Signing ${ref} (attempt ${i}/3)…"
+              if sign "${ref}"; then
+                echo "Signed ${ref}"
+                return 0
+              fi
+              # Exponential-ish backoff
+              sleep $((i*15))
+            done
+            echo "Failed to sign ${ref} after 3 attempts"
+            exit 1
+          }
+
+          retry_sign "${{ env.IMAGE_REPO }}:${{ github.ref_name }}"
+          retry_sign "${{ env.IMAGE_REPO }}:latest"
 
       # Create GitHub Release and attach SBOM
       - name: Create Release
