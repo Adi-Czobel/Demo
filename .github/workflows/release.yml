@@ -1,0 +1,87 @@
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]      # e.g. v0.1.1
+  workflow_dispatch:
+
+permissions:
+  contents: write        # create releases
+  id-token: write        # cosign keyless
+  packages: write        # push to GHCR
+
+env:
+  DOCKERFILE_PATH: Docker/dockerfile
+  BUILD_CONTEXT: .
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ensure GHCR repo is lowercase
+      - name: Compute lowercase image repo
+        run: echo "IMAGE_REPO=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.BUILD_CONTEXT }}
+          file: ${{ env.DOCKERFILE_PATH }}
+          push: true
+          tags: |
+            ${{ env.IMAGE_REPO }}:${{ github.ref_name }}
+            ${{ env.IMAGE_REPO }}:latest
+          provenance: true
+
+      - name: Generate SBOM (Syft)
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ env.IMAGE_REPO }}:${{ github.ref_name }}
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+
+      - name: Trivy image scan
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: ${{ env.IMAGE_REPO }}:${{ github.ref_name }}
+          format: sarif
+          output: trivy-image.sarif
+          ignore-unfixed: true
+          severity: CRITICAL,HIGH
+
+      - name: Upload Trivy SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-image.sarif
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Cosign sign (keyless)
+        run: |
+          cosign sign ${{ env.IMAGE_REPO }}:${{ github.ref_name }} --yes
+          cosign sign ${{ env.IMAGE_REPO }}:latest --yes
+
+      - name: Create Release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: sbom.spdx.json
