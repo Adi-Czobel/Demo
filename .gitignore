@@ -1,0 +1,13 @@
+# Local dev-only Kubernetes manifests
+kubernetes/*-local.yaml
+kubernetes/dev-*.yaml
+kubernetes/test-*.yaml
+
+# Minikube & kubeconfig
+.minkube/
+.kube/
+config
+
+# Local-only documentation/notes
+LOCAL_DEV_NOTES.md
+*.log
