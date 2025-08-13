@@ -2,12 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: demo-service
-  namespace: demo-namespace
+  namespace: default
+  labels:
+    app: demo
 spec:
+  type: ClusterIP # safest default, no external exposure
   selector:
     app: demo
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
-      targetPort: 80
-  type: ClusterIP
+      targetPort: 8080
