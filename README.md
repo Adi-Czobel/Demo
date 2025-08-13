@@ -1,6 +1,6 @@
 # Demo
 
-[![CI](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml)
+![CI](https://github.com/Adi-Czobel/Demo/actions/workflows/ci.yml/badge.svg?branch=main)
 [![Policy Checks](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/policy.yml)
 [![Release](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml/badge.svg)](https://github.com/Adi-Czobel/Demo/actions/workflows/release.yml)
 [![Security Checks](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/Adi-Czobel/Demo/actions/workflows/security.yml)
